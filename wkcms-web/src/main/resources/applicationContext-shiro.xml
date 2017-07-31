@@ -23,7 +23,7 @@
     </bean>
 
     <!-- 自定义filter -->
-    <bean id="clientIdent" class="org.wkidt.wkcms.web.filter.ClientIdentificationFilter"/>
+    <bean id="login" class="org.wkidt.wkcms.web.filter.LoginFilter"/>
 
     <!-- Shiro过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -37,21 +37,22 @@
 
         <property name="filters">
             <map>
-                <entry key="clientIdent" value-ref="clientIdent"/>
+                <entry key="login" value-ref="login"/>
             </map>
         </property>
 
 
         <property name="filterChainDefinitions">
-            <value>
-                /public/**=clientIdent
+
+            <value>/public/**=anon
                 /user/login=anon
                 /user/register=anon
                 /user/logout=anon
                 /verifyCode=anon
                 /**/*.*=anon
-                /**=authc
+                /**=login
             </value>
+
         </property>
     </bean>
 
