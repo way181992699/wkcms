@@ -20,8 +20,9 @@ public class AppTest {
 
     @Test
     public void test() {
-        logger.info("selectByUserName =================== " + userMapper.selectAllUser());
+    /*    logger.info("selectByUserName =================== " + userMapper.selectAllUser());
     }
+*/
 
-
+}
 }

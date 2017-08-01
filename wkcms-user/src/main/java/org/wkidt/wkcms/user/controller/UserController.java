@@ -38,6 +38,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.wkidt.wkcms.common.BaseController;
+import org.wkidt.wkcms.common.Page;
+import org.wkidt.wkcms.common.PageResult;
 import org.wkidt.wkcms.common.Result;
 import org.wkidt.wkcms.user.form.LoginForm;
 import org.wkidt.wkcms.user.form.RegisterForm;
@@ -144,6 +146,50 @@ public class UserController extends BaseController<User> {
         SecurityUtils.getSubject().logout();
         return new Result(Result.STATUS_SUCCESS, "退出成功");
     }
-
+    
+    /**
+     * 
+     * 分页查询用户
+     * 
+     * @param page
+     * @return
+     */
+    @RequestMapping(value="/user/queryAll",method=RequestMethod.GET)
+    @ResponseBody
+    PageResult<User> pageSelectUser(Page  page){
+    	try {
+    	Page<User> p =userService.pageSelectUser(page);
+    	
+    	return new PageResult<User>(Result.STATUS_SUCCESS, "查询成功", p);
+    	
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+    
+    	return new PageResult<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+    	
+    }
+    
+    /**
+     * 新增用户
+     * 
+     * @param record
+     * @return
+     */
+    @RequestMapping("/user/insert")
+    @ResponseBody
+    Result insert(User record){
+    	try {
+    		boolean result = userService.insert(record);
+    		if (result==true) {
+				return new Result(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	
+    	return new PageResult<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+    }
 
 }

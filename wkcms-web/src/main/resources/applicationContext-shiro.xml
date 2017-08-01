@@ -50,7 +50,7 @@
                 /user/logout=anon
                 /verifyCode=anon
                 /**/*.*=anon
-                /**=login
+                /**=anon
             </value>
 
         </property>

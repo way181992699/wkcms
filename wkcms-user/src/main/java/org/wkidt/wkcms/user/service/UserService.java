@@ -28,6 +28,9 @@ package org.wkidt.wkcms.user.service;
 //
 
 
+import java.util.List;
+
+import org.wkidt.wkcms.common.Page;
 import org.wkidt.wkcms.user.model.User;
 
 /**
@@ -53,8 +56,20 @@ public interface UserService {
      */
     void register(User user);
 
-
-
-
-
+    /**
+     * 
+     * 分页查询用户信息
+     * 
+     * @return
+     */
+    Page<User> pageSelectUser(Page page);
+    
+    /**
+     * 用户新增
+     * 
+     * @param record
+     * @return int 
+     */
+    boolean insert(User record);
+    
 }

@@ -17,8 +17,14 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-
-    List<User> selectAllUser();
+    
+    /**
+     * 
+     * 分页查询用户信息
+     * 
+     * @return
+     */
+    List<User> pageSelectUser(@Param("pageCount") int pageCount,@Param("offset") int offset);
 
     /**
      * 用户名查找
@@ -27,5 +33,12 @@ public interface UserMapper {
      * @return
      */
     User selectByUserName(@Param("userName") String userName);
+    
+    /**
+     * 
+     * 查询用户的总数
+     * @return
+     */
+    long getCount();
 
 }
