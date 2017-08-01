@@ -33,7 +33,9 @@ import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 import org.apache.shiro.web.filter.authc.AuthenticationFilter;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.wkidt.wkcms.conf.Config;
+import org.wkidt.wkcms.utils.ChacheUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -45,31 +47,30 @@ import java.io.IOException;
  * Created by zcm on 2017/7/28. version 1.0
  */
 
-public class LoginFilter extends AccessControlFilter {
+public class LoginFilter extends FormAuthenticationFilter {
     Logger logger = Logger.getLogger(this.getClass());
     private static final String HEAD_USER_AGENT = "User-Agent";
     private static final String PARAM_USER_AGENT = "userAgent";
 
-
     @Override
-    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-
-        logger.info(getUserAgent((HttpServletRequest) request));
-        //判断客户端
-        if (Config.isMobileDevices(getUserAgent((HttpServletRequest) request))) {
-            //查询手机端是否登录 缓存 redis
-
-        } else {
-            //查询web端是否登录 session
-           return SecurityUtils.getSubject().isAuthenticated();
-
-        }
+    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         return false;
     }
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-        return false;
+
+        logger.info(getUserAgent((HttpServletRequest) request));
+        //判断客户端
+        if (Config.isMobileDevices(getUserAgent((HttpServletRequest) request))) {
+            //查询手机端是否登录 缓存 redis
+            Object instane = ChacheUtils.getInstance().get(((HttpServletRequest) request).getHeader("Acccent-Token"));
+
+        }
+
+        //查询web端是否登录 session
+        return super.onAccessDenied(request, response);
+
     }
 
     /**

@@ -27,12 +27,11 @@ package andorid.test;
 //
 //
 
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
+import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Description
@@ -42,15 +41,27 @@ import java.io.IOException;
 
 public class AndroidTest {
 
-    @org.junit.Test
-    public void test() {
-        String url = "http://localhost:8080/wkcms-web/public/test";
+
+    public void connet(String url, Map<String, Object> params, int type) {
         OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder()
-                .addHeader("User-Agent","android")
-                .url(url)
-                .build();
-        Call call = okHttpClient.newCall(request);
+        Request.Builder builder = new Request.Builder();
+        builder.addHeader("User-Agent", "android");
+        builder.url(url);
+        switch (type) {
+            case 0: {
+                builder.get();
+                break;
+            }
+            case 1: {
+                FormBody.Builder form = new FormBody.Builder();
+                for (String key : params.keySet()) {
+                    form.add(key, params.get(key).toString());
+                }
+                builder.post(form.build());
+                break;
+            }
+        }
+        Call call = okHttpClient.newCall(builder.build());
         try {
             Response response = call.execute();
             System.out.println(response.body().string());
@@ -58,4 +69,26 @@ public class AndroidTest {
             e.printStackTrace();
         }
     }
+
+    public void post(String url, Map<String, Object> params) {
+        connet(url, params, 1);
+    }
+
+    public void get(String url) {
+        connet(url, null, 0);
+    }
+
+    @Test
+    public void login() {
+        String url = "http://localhost:8080/wkcms-web/user/login?userName=admin&password=123456";
+        get(url);
+    }
+
+    @Test
+    public void index() {
+        String url = "http://localhost:8080/wkcms-web/";
+        get(url);
+    }
+
+
 }
