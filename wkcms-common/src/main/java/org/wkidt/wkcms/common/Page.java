@@ -22,7 +22,7 @@ package org.wkidt.wkcms.common;
 //
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-//               佛祖保佑         永无BUG
+//               佛祖保佑         永无BUG  阿弥陀佛
 //
 //
 //
@@ -39,6 +39,7 @@ public class Page<E> {
     private int currentPage;
     private int pageCount;
     private long tota;
+    
 
     private List<E> data;
 
