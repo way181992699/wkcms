@@ -191,5 +191,49 @@ public class UserController extends BaseController<User> {
     	
     	return new PageResult<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
     }
+    
+    
+    /**
+     * 修改用户
+     * 
+     * @param record
+     * @return
+     */
+    @RequestMapping("/user/update")
+    @ResponseBody
+    Result updateByPrimaryKey(User record){
+    	try {
+    		boolean result = userService.updateByPrimaryKey(record);
+    		if (result==true) {
+				return new Result(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	
+    	return new PageResult<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+    }
+    
+    
+    /**
+     * 删除用户
+     * 
+     * @param record
+     * @return
+     */
+    @RequestMapping("/user/delete")
+    @ResponseBody
+    Result deleteByPrimaryKey(Long userId){
+    	try {
+    		boolean result = userService.deleteByPrimaryKey(userId);
+    		if (result==true) {
+				return new Result(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	
+    	return new PageResult<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+    }
 
 }

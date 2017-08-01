@@ -81,5 +81,25 @@ public class UserServiceImpl extends AbstractService implements UserService {
 		}
 		return false;
 		}
+	
+	//用户修改
+	@Override
+	public boolean updateByPrimaryKey(User record) {
+		int result = userMapper.updateByPrimaryKey(record);
+		if (result>0) {
+			return true;
+		}
+		return false;
+		}
+	
+	//用户删除
+	@Override
+	public boolean deleteByPrimaryKey(Long userId) {
+		int result = userMapper.deleteByPrimaryKey(userId);
+		if (result>0) {
+			return true;
+		}
+		return false;
+		}
 	}
 

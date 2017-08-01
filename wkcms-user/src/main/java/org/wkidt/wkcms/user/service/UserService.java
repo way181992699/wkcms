@@ -68,8 +68,23 @@ public interface UserService {
      * 用户新增
      * 
      * @param record
-     * @return int 
+     * @return boolean
      */
     boolean insert(User record);
     
+    /**
+     * 用户修改
+     * 
+     * @param record
+     * @return boolean 
+     */
+    boolean updateByPrimaryKey(User record);
+    
+    /**
+     * 用户删除
+     * 
+     * @param record
+     * @return boolean 
+     */
+    boolean deleteByPrimaryKey(Long userId);
 }
