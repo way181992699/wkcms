@@ -43,6 +43,12 @@ import org.wkidt.wkcms.user.form.LoginForm;
 import org.wkidt.wkcms.user.form.RegisterForm;
 import org.wkidt.wkcms.user.model.User;
 import org.wkidt.wkcms.user.service.UserService;
+import org.wkidt.wkcms.utils.ChacheUtils;
+import org.wkidt.wkcms.utils.RequestUtils;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Description
@@ -77,15 +83,18 @@ public class UserController extends BaseController<User> {
             if (user != null) {
                 if (user.getPassword().equals(form.getPassword())) {
                     Subject subject = SecurityUtils.getSubject();
-
                     //判断客户端
-                    if (isMobileDevice()) {
+                    if (RequestUtils.isMobileDevice(request)) {
                         //将登录状态保存在redis中
-                        subject.getSession().getId();
-
+                        logger.info("session ====================== " + subject.getSession());
+                        Serializable id = subject.getSession().getId();
+                        logger.info("session id ======================= " + id);
+                        ChacheUtils.getInstance().put(id, user);
+                        Map map = new HashMap();
+                        map.put("accentToken", id);
+                        return new Result(Result.STATUS_SUCCESS, "登录成功", map);
                     } else {
                         //
-                        saveLoginUser(user);
                         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
                         subject.login(token);
                     }

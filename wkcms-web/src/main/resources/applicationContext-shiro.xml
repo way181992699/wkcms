@@ -13,7 +13,7 @@
     </bean>
 
     <!-- 自定义Realm -->
-    <bean id="defaultAuthorizingRealm" class="org.wkidt.wkcms.web.DefaultAuthorizingRealm">
+    <bean id="defaultAuthorizingRealm" class="org.wkidt.wkcms.user.extra.DefaultAuthorizingRealm">
     </bean>
 
     <!-- 安全管理器 -->
@@ -23,7 +23,7 @@
     </bean>
 
     <!-- 自定义filter -->
-    <bean id="login" class="org.wkidt.wkcms.web.filter.LoginFilter"/>
+    <bean id="login" class="org.wkidt.wkcms.user.filter.LoginFilter"/>
 
     <!-- Shiro过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">

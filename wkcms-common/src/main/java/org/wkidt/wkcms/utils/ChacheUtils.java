@@ -44,7 +44,7 @@ public final class ChacheUtils {
     }
 
     public static ChacheUtils getInstance() {
-        synchronized (instance) {
+        synchronized (ChacheUtils.class) {
             if (instance == null)
                 instance = new ChacheUtils();
         }
@@ -59,4 +59,7 @@ public final class ChacheUtils {
         return map.get(key);
     }
 
+    public HashMap<Object, Object> getMap() {
+        return map;
+    }
 }

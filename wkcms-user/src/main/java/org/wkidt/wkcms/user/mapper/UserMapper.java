@@ -18,9 +18,7 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-
     List<User> selectAllUser();
-
 
     /**
      * 用户名查找

@@ -84,7 +84,6 @@ public class PublicController extends BaseController<User> {
         page.setPageCount(10);
         page.setTota(1000);
         page.setData(null);
-        logger.info("UserAgent ================= " + getUserAgent());
 
         return new PageResult<>(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS, page);
     }

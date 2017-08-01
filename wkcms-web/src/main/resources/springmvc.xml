@@ -56,25 +56,6 @@
         <property name="suffix" value=".jsp"></property>
     </bean>
 
-    <!--配置拦截器, 多个拦截器,顺序执行 -->
-    <!--
-        <mvc:interceptors>
-            <mvc:interceptor>
-                &lt;!&ndash; 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller &ndash;&gt;
-                <mvc:mapping path="/**"/>
-                &lt;!&ndash; 过滤静态文件和部分不需要登录认证的url &ndash;&gt;
-                <mvc:exclude-mapping path="/**/*.*"/>
-                <mvc:exclude-mapping path="/api/**"/>
-                <mvc:exclude-mapping path="/user/page/login"/>
-                <mvc:exclude-mapping path="/user/login"/>
-                <mvc:exclude-mapping path="/user/page/register"/>
-                <mvc:exclude-mapping path="/user/register"/>
-                <bean class="org.wkidt.wkcms.web.interceptor.LoginInterceptor"/>
-            </mvc:interceptor>
-            &lt;!&ndash; 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 &ndash;&gt;
-        </mvc:interceptors>
-    -->
-
     <!-- 静态文件过滤 ，将所有带有后缀的url视为静态资源 -->
     <mvc:resources location="/" mapping="/**/*.*"/>
 

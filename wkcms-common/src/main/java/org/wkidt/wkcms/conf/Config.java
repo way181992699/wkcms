@@ -6,19 +6,14 @@ package org.wkidt.wkcms.conf;
 public final class Config {
     public static final String USER_KEY = "user";
     public static final String CODE_VERIFY = "verify";
-
+    //
     public static final String USER_AGENT_ANDROID = "app_android";
     public static final String USER_AGENT_IOS = "app_ios";
-
-    /**
-     * 客户段识别
-     *
-     * @param userAgent
-     * @return
-     */
-    public static boolean isMobileDevices(String userAgent) {
-        return userAgent.toLowerCase().contains(USER_AGENT_ANDROID)
-                || userAgent.toLowerCase().contains(USER_AGENT_IOS);
-    }
+    //
+    public static final String HEAD_ACCENT_TOKEN = "Accent-Token";
+    public static final String PARAM_ACCENT_TOKEN = "accentToken";
+    //
+    public static final String HEAD_USER_AGENT = "User-Agent";
+    public static final String PARAM_USER_AGENT = "userAgent";
 
 }
