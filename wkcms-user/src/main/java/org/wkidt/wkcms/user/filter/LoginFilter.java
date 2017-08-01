@@ -27,22 +27,16 @@ package org.wkidt.wkcms.user.filter;
 //
 //
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.web.filter.AccessControlFilter;
-import org.apache.shiro.web.filter.authc.AnonymousFilter;
-import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
-import org.apache.shiro.web.filter.authc.AuthenticationFilter;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
-import org.wkidt.wkcms.conf.Config;
 import org.wkidt.wkcms.user.model.User;
 import org.wkidt.wkcms.utils.ChacheUtils;
 import org.wkidt.wkcms.utils.RequestUtils;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 /**
  * 登录验证

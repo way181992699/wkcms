@@ -27,8 +27,6 @@ package org.wkidt.wkcms.common;
 //
 //
 
-import java.util.List;
-
 /**
  * Description
  * <p>
@@ -37,7 +35,9 @@ import java.util.List;
 
 public class PageResult<E> extends Result<Page<E>> {
 
-    public PageResult() {
+	private static final long serialVersionUID = 1L;
+
+	public PageResult() {
     }
 
     public PageResult(int status, String message) {
