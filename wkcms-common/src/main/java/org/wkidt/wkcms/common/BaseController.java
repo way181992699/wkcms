@@ -57,40 +57,6 @@ public abstract class BaseController<E> {
         this.session = request.getSession(true);
     }
 
-    /**
-     * 保存登录用户到session
-     *
-     * @param user
-     */
-    protected void saveLoginUser(E user) {
-        if (session == null)
-            throw new NullPointerException("Session is null ");
-        session.setAttribute(Config.USER_KEY, user);
-    }
-
-    /**
-     * 获取登录用户
-     *
-     * @return
-     */
-    protected E getLoginUser() throws IllegalAccessException, InstantiationException {
-        if (session == null)
-            throw new NullPointerException("Session is null");
-        Object loginUser = session.getAttribute(Config.USER_KEY);
-        if (loginUser != null) {
-            return (E) loginUser;
-        }
-        return null;
-    }
-
-    /**
-     * 删除登录用户
-     */
-    protected void removeLoginUser() {
-        if (session == null)
-            throw new NullPointerException("Session is null");
-        session.removeAttribute(Config.USER_KEY);
-    }
 
     /**
      * 图片验证码
@@ -100,7 +66,6 @@ public abstract class BaseController<E> {
     protected String getVerifyCode() {
         return (String) session.getAttribute(Config.CODE_VERIFY);
     }
-
 
 
 }

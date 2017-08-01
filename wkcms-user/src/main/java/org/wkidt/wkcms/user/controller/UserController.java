@@ -140,7 +140,6 @@ public class UserController extends BaseController<User> {
     @RequestMapping("/user/logout")
     @ResponseBody
     Result logout() {
-        removeLoginUser();
         SecurityUtils.getSubject().logout();
         return new Result(Result.STATUS_SUCCESS, "退出成功");
     }

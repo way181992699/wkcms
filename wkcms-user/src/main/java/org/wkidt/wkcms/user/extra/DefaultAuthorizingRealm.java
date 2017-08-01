@@ -1,4 +1,4 @@
-package org.wkidt.wkcms.web;
+package org.wkidt.wkcms.user.extra;
 //
 //                       _oo0oo_
 //                      o8888888o
