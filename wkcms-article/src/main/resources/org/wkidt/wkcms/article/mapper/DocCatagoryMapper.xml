@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wkidt.wkcms.article.mapper.DocCatagoryMapper" >
+  <resultMap id="BaseResultMap" type="org.wkidt.wkcms.article.model.DocCatagory" >
+    <id column="catagory_id" property="catagoryId" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="catagory_name" property="catagoryName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    catagory_id, parent_id, catagory_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from doc_catagory
+    where catagory_id = #{catagoryId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from doc_catagory
+    where catagory_id = #{catagoryId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.wkidt.wkcms.article.model.DocCatagory" >
+    insert into doc_catagory (catagory_id, parent_id, catagory_name
+      )
+    values (#{catagoryId,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{catagoryName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.wkidt.wkcms.article.model.DocCatagory" >
+    insert into doc_catagory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="catagoryId != null" >
+        catagory_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="catagoryName != null" >
+        catagory_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="catagoryId != null" >
+        #{catagoryId,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="catagoryName != null" >
+        #{catagoryName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.wkidt.wkcms.article.model.DocCatagory" >
+    update doc_catagory
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="catagoryName != null" >
+        catagory_name = #{catagoryName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where catagory_id = #{catagoryId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.wkidt.wkcms.article.model.DocCatagory" >
+    update doc_catagory
+    set parent_id = #{parentId,jdbcType=BIGINT},
+      catagory_name = #{catagoryName,jdbcType=VARCHAR}
+    where catagory_id = #{catagoryId,jdbcType=BIGINT}
+  </update>
+</mapper>
