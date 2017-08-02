@@ -30,6 +30,7 @@ package org.wkidt.wkcms.user.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.wkidt.wkcms.common.Page;
 import org.wkidt.wkcms.user.model.User;
 
@@ -59,14 +60,14 @@ public interface UserService {
     /**
      * 
      * 分页查询用户信息
-     * 
+     * @author wkx
      * @return
      */
     Page<User> pageSelectUser(Page page);
     
     /**
      * 用户新增
-     * 
+     * @author wkx
      * @param record
      * @return boolean
      */
@@ -74,7 +75,7 @@ public interface UserService {
     
     /**
      * 用户修改
-     * 
+     * @author wkx
      * @param record
      * @return boolean 
      */
@@ -82,9 +83,27 @@ public interface UserService {
     
     /**
      * 用户删除
-     * 
+     * @author wkx
      * @param record
      * @return boolean 
      */
     boolean deleteByPrimaryKey(Long userId);
+    
+    /**
+     * 
+     * 根据userId 查询用户信息
+     * @author wkx
+     * @param userId
+     * @return
+     */
+    User selectByPrimaryKey(Long userId);
+    
+   /**
+    * 
+    * 修改用户密码
+    * 
+    * @return int
+    */
+    int changePassword(User user);
+    
 }

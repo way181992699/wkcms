@@ -27,11 +27,13 @@ package org.wkidt.wkcms.user.controller;
 //
 //
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,6 +53,8 @@ import org.wkidt.wkcms.utils.RequestUtils;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Description
@@ -179,17 +183,38 @@ public class UserController extends BaseController<User> {
      */
     @RequestMapping("/user/insert")
     @ResponseBody
-    Result insert(User record){
+    Result<User> insert(User record){
     	try {
     		boolean result = userService.insert(record);
     		if (result==true) {
-				return new Result(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
+				return new Result<User>(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
     	
-    	return new PageResult<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+    	return new Result<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+    }
+    
+    /**
+     * 根据userId 查询出用户信息
+     * 
+     * @param userId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/user/findUserByUserId")
+    Result<User> selectByPrimaryKey(Long userId){
+    	try {
+			
+    		User user = userService.selectByPrimaryKey(userId);
+    		if (user!=null) {
+				return new Result<User>(Result.STATUS_SUCCESS,Result.MESSAGE_SUCCESS,user);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	return new Result<User>(Result.STATUS_UNKNOW,Result.MESSAGE_UNKNOW);
     }
     
     
@@ -201,17 +226,17 @@ public class UserController extends BaseController<User> {
      */
     @RequestMapping("/user/update")
     @ResponseBody
-    Result updateByPrimaryKey(User record){
+    Result<User> updateByPrimaryKey(User record){
     	try {
     		boolean result = userService.updateByPrimaryKey(record);
     		if (result==true) {
-				return new Result(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
+				return new Result<User>(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
     	
-    	return new PageResult<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+    	return new Result<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
     }
     
     
@@ -223,17 +248,46 @@ public class UserController extends BaseController<User> {
      */
     @RequestMapping("/user/delete")
     @ResponseBody
-    Result deleteByPrimaryKey(Long userId){
+    Result<User> deleteByPrimaryKey(Long userId){
     	try {
     		boolean result = userService.deleteByPrimaryKey(userId);
     		if (result==true) {
-				return new Result(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
+				return new Result<User>(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
     	
-    	return new PageResult<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+    	return new Result<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
     }
 
+    @RequestMapping("/user/updatepwd")
+    @ResponseBody
+    Result<User> changePassword(User user){
+    	try {
+    		
+			int result = userService.changePassword(user);
+			if (result>0) {
+				return new Result<User>(Result.STATUS_SUCCESS,"密码修改成功");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	return new Result<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+    }
+    
+   public void getName(){
+	
+	   System.out.println(String.class.getClass().getName());
+   }
+ 
+/*    @ResponseBody
+    @RequestMapping("/goto")
+    String test(String name){
+    	
+    	System.out.println(name);
+    return	name;
+    	
+    }*/
+    
 }

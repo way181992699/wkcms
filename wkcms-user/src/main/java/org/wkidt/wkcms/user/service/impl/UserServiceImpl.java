@@ -30,6 +30,7 @@ package org.wkidt.wkcms.user.service.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,5 +102,24 @@ public class UserServiceImpl extends AbstractService implements UserService {
 		}
 		return false;
 		}
+	
+	//根据userId 查询用户信息
+	@Override
+	public User selectByPrimaryKey(Long userId) {
+		
+		
+		return userMapper.selectByPrimaryKey(userId);
+	}
+
+	@Override
+	public int changePassword(User user) {
+		// TODO Auto-generated method stub
+	
+		return userMapper.changePassword(user);
+	}
+
+
+
+	
 	}
 

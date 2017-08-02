@@ -1,5 +1,6 @@
 package org.wkidt.wkcms.user.model;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,10 @@ public class User {
     private Date lastUpdaetTime;
 
     private List<Role> roles;
+    
+    //临时属性，用于修改密码
+    private String newpassword;
+    
 
     public List<Role> getRoles() {
         return roles;
@@ -98,4 +103,12 @@ public class User {
                 ", roles=" + roles +
                 '}';
     }
+
+	public String getNewpassword() {
+		return newpassword;
+	}
+
+	public void setNewpassword(String newpassword) {
+		this.newpassword = newpassword;
+	}
 }
