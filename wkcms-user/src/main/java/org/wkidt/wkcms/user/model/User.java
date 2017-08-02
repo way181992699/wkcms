@@ -3,7 +3,6 @@ package org.wkidt.wkcms.user.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 public class User {
     private Long userId;

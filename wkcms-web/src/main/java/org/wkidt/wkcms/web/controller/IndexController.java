@@ -1,5 +1,6 @@
 package org.wkidt.wkcms.web.controller;
 //
+
 //                       _oo0oo_
 //                      o8888888o
 //                      88" . "88
@@ -27,18 +28,12 @@ package org.wkidt.wkcms.web.controller;
 //
 //
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wkidt.wkcms.common.BaseController;
 import org.wkidt.wkcms.common.Result;
 import org.wkidt.wkcms.user.model.User;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 首页控制器
@@ -48,11 +43,16 @@ import java.util.Map;
 @Controller
 public class IndexController extends BaseController<User> {
 
-    @RequestMapping("/")
-    @ResponseBody
-    Result index() {
-        logger.info("======================== index ======================= ");
-        return new Result(Result.STATUS_SUCCESS, "Index page");
-    }
+	/**
+	 * 欢迎信息
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/")
+	@ResponseBody
+	Result<Object> index() {
+		logger.info("======================== index ======================= ");
+		return new Result<Object>(Result.STATUS_SUCCESS, "{\"info\" :\"Hello World !\"}");
+	}
 
 }

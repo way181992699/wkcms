@@ -1,3 +1,4 @@
+
 package org.wkidt.wkcms.user.mapper;
 
 import org.apache.ibatis.annotations.Param;
@@ -45,6 +46,8 @@ public interface UserMapper {
      */
     int updateByPrimaryKey(User record);
     
+    List<User> selectAllUser();
+    
     /**
      * 
      * 分页查询用户信息
@@ -76,5 +79,6 @@ public interface UserMapper {
      * @return int
      */
      int changePassword(User user);
+
 
 }

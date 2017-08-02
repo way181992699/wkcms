@@ -12,6 +12,7 @@
         <module>wkcms-common</module>
         <module>wkcms-user</module>
         <module>wkcms-web</module>
+        <module>wkcms-article</module>
     </modules>
 
     <!-- 阿里云仓库配置 -->

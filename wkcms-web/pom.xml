@@ -11,10 +11,16 @@
     <name>wkcms-web Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
-
         <dependency>
             <groupId>org.wkidt.wkcms</groupId>
             <artifactId>wkcms-user</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 内容模块 -->
+        <dependency>
+            <groupId>org.wkidt.wkcms</groupId>
+            <artifactId>wkcms-article</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
