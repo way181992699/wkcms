@@ -39,7 +39,16 @@ public class Page<E> {
     private int currentPage;
     private int pageCount;
     private long tota;
-    
+
+    public Page() {
+    }
+
+    public Page(int currentPage, int pageCount, long tota, List<E> data) {
+        this.currentPage = currentPage;
+        this.pageCount = pageCount;
+        this.tota = tota;
+        this.data = data;
+    }
 
     private List<E> data;
 
@@ -74,4 +83,17 @@ public class Page<E> {
     public void setData(List<E> data) {
         this.data = data;
     }
+
+    /* extra  method */
+
+    /**
+     * 空数据
+     *
+     * @return
+     */
+    public boolean isEmpty() {
+        return data != null && data.size() == 0;
+    }
+
+
 }

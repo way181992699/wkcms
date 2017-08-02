@@ -1,44 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.wkidt.wkcms.article.mapper.ArticleMapper" >
-  <resultMap id="BaseResultMap" type="org.wkidt.wkcms.article.model.Article" >
-    <id column="article_id" property="articleId" jdbcType="BIGINT" />
-    <result column="uid" property="uid" jdbcType="BIGINT" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="subtitle" property="subtitle" jdbcType="VARCHAR" />
-    <result column="catagory_id" property="catagoryId" jdbcType="BIGINT" />
-    <result column="model_id" property="modelId" jdbcType="BIGINT" />
-    <result column="visible" property="visible" jdbcType="BIT" />
-    <result column="view" property="view" jdbcType="BIGINT" />
-    <result column="level" property="level" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="org.wkidt.wkcms.article.model.ArticleWithBLOBs" extends="BaseResultMap" >
-    <result column="content" property="content" jdbcType="LONGVARBINARY" />
-    <result column="url" property="url" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="org.wkidt.wkcms.article.mapper.ArticleMapper">
+    <resultMap id="BaseResultMap" type="org.wkidt.wkcms.article.model.Article">
+        <id column="article_id" property="articleId" jdbcType="BIGINT"/>
+        <result column="uid" property="uid" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="subtitle" property="subtitle" jdbcType="VARCHAR"/>
+        <result column="catagory_id" property="catagoryId" jdbcType="BIGINT"/>
+        <result column="model_id" property="modelId" jdbcType="BIGINT"/>
+        <result column="visible" property="visible" jdbcType="BIT"/>
+        <result column="view" property="view" jdbcType="BIGINT"/>
+        <result column="level" property="level" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="org.wkidt.wkcms.article.model.ArticleWithBLOBs" extends="BaseResultMap">
+        <result column="content" property="content" jdbcType="LONGVARBINARY"/>
+        <result column="url" property="url" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     article_id, uid, title, subtitle, catagory_id, model_id, visible, view, level, create_time, 
     update_time, delete_time
   </sql>
-  <sql id="Blob_Column_List" >
+    <sql id="Blob_Column_List">
     content, url
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from doc_article
-    where article_id = #{articleId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+
+    <!--**************************************************************************************************-->
+    <!--********************************** sql start *****************************************************-->
+    <!--**************************************************************************************************-->
+
+    <select id="getCount" resultType="java.lang.Long">
+        select count(article_id) from doc_article
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from doc_article
+        where article_id = #{articleId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectPage" parameterType="org.wkidt.wkcms.common.PageForm" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from doc_article
+        limit #{pageCount} offset #{offset}
+    </select>
+    <!--********************************** select end *****************************************************-->
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from doc_article
     where article_id = #{articleId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="org.wkidt.wkcms.article.model.ArticleWithBLOBs" >
+    <!--********************************** delete end *****************************************************-->
+
+    <insert id="insert" parameterType="org.wkidt.wkcms.article.model.ArticleWithBLOBs">
     insert into doc_article (article_id, uid, title, 
       subtitle, catagory_id, model_id, 
       visible, view, level, create_time, 
@@ -50,143 +72,145 @@
       #{updateTime,jdbcType=TIMESTAMP}, #{deleteTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARBINARY}, 
       #{url,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="org.wkidt.wkcms.article.model.ArticleWithBLOBs" >
-    insert into doc_article
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="articleId != null" >
-        article_id,
-      </if>
-      <if test="uid != null" >
-        uid,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="subtitle != null" >
-        subtitle,
-      </if>
-      <if test="catagoryId != null" >
-        catagory_id,
-      </if>
-      <if test="modelId != null" >
-        model_id,
-      </if>
-      <if test="visible != null" >
-        visible,
-      </if>
-      <if test="view != null" >
-        view,
-      </if>
-      <if test="level != null" >
-        level,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="deleteTime != null" >
-        delete_time,
-      </if>
-      <if test="content != null" >
-        content,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="articleId != null" >
-        #{articleId,jdbcType=BIGINT},
-      </if>
-      <if test="uid != null" >
-        #{uid,jdbcType=BIGINT},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="subtitle != null" >
-        #{subtitle,jdbcType=VARCHAR},
-      </if>
-      <if test="catagoryId != null" >
-        #{catagoryId,jdbcType=BIGINT},
-      </if>
-      <if test="modelId != null" >
-        #{modelId,jdbcType=BIGINT},
-      </if>
-      <if test="visible != null" >
-        #{visible,jdbcType=BIT},
-      </if>
-      <if test="view != null" >
-        #{view,jdbcType=BIGINT},
-      </if>
-      <if test="level != null" >
-        #{level,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deleteTime != null" >
-        #{deleteTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=LONGVARBINARY},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.wkidt.wkcms.article.model.ArticleWithBLOBs" >
-    update doc_article
-    <set >
-      <if test="uid != null" >
-        uid = #{uid,jdbcType=BIGINT},
-      </if>
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="subtitle != null" >
-        subtitle = #{subtitle,jdbcType=VARCHAR},
-      </if>
-      <if test="catagoryId != null" >
-        catagory_id = #{catagoryId,jdbcType=BIGINT},
-      </if>
-      <if test="modelId != null" >
-        model_id = #{modelId,jdbcType=BIGINT},
-      </if>
-      <if test="visible != null" >
-        visible = #{visible,jdbcType=BIT},
-      </if>
-      <if test="view != null" >
-        view = #{view,jdbcType=BIGINT},
-      </if>
-      <if test="level != null" >
-        level = #{level,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deleteTime != null" >
-        delete_time = #{deleteTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=LONGVARBINARY},
-      </if>
-      <if test="url != null" >
-        url = #{url,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where article_id = #{articleId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.wkidt.wkcms.article.model.ArticleWithBLOBs" >
+    <insert id="insertSelective" parameterType="org.wkidt.wkcms.article.model.ArticleWithBLOBs">
+        insert into doc_article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="articleId != null">
+                article_id,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="subtitle != null">
+                subtitle,
+            </if>
+            <if test="catagoryId != null">
+                catagory_id,
+            </if>
+            <if test="modelId != null">
+                model_id,
+            </if>
+            <if test="visible != null">
+                visible,
+            </if>
+            <if test="view != null">
+                view,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleteTime != null">
+                delete_time,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="articleId != null">
+                #{articleId,jdbcType=BIGINT},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=BIGINT},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="subtitle != null">
+                #{subtitle,jdbcType=VARCHAR},
+            </if>
+            <if test="catagoryId != null">
+                #{catagoryId,jdbcType=BIGINT},
+            </if>
+            <if test="modelId != null">
+                #{modelId,jdbcType=BIGINT},
+            </if>
+            <if test="visible != null">
+                #{visible,jdbcType=BIT},
+            </if>
+            <if test="view != null">
+                #{view,jdbcType=BIGINT},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteTime != null">
+                #{deleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARBINARY},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!--********************************** insert end *****************************************************-->
+
+    <update id="updateByPrimaryKeySelective" parameterType="org.wkidt.wkcms.article.model.ArticleWithBLOBs">
+        update doc_article
+        <set>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=BIGINT},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="subtitle != null">
+                subtitle = #{subtitle,jdbcType=VARCHAR},
+            </if>
+            <if test="catagoryId != null">
+                catagory_id = #{catagoryId,jdbcType=BIGINT},
+            </if>
+            <if test="modelId != null">
+                model_id = #{modelId,jdbcType=BIGINT},
+            </if>
+            <if test="visible != null">
+                visible = #{visible,jdbcType=BIT},
+            </if>
+            <if test="view != null">
+                view = #{view,jdbcType=BIGINT},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteTime != null">
+                delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARBINARY},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where article_id = #{articleId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.wkidt.wkcms.article.model.ArticleWithBLOBs">
     update doc_article
     set uid = #{uid,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
@@ -203,7 +227,7 @@
       url = #{url,jdbcType=LONGVARCHAR}
     where article_id = #{articleId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.wkidt.wkcms.article.model.Article" >
+    <update id="updateByPrimaryKey" parameterType="org.wkidt.wkcms.article.model.Article">
     update doc_article
     set uid = #{uid,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
@@ -218,4 +242,5 @@
       delete_time = #{deleteTime,jdbcType=TIMESTAMP}
     where article_id = #{articleId,jdbcType=BIGINT}
   </update>
+    <!--********************************** update end *****************************************************-->
 </mapper>
