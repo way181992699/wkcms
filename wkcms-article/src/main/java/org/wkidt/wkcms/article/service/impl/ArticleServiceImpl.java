@@ -27,6 +27,7 @@ package org.wkidt.wkcms.article.service.impl;
 //
 //
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.wkidt.wkcms.article.form.ArticleForm;
@@ -38,6 +39,7 @@ import org.wkidt.wkcms.common.Page;
 import org.wkidt.wkcms.common.PageForm;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,21 +56,43 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
 
     @Override
     public boolean articleAdd(ArticleForm form) {
-        return false;
+        //articleMapper.insertSelective(form);
+        logger.info(form.getDocument() + form.getTitle() + form.getSubtitle());
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(form);
+        logger.info(jsonStr);
+        ArticleWithBLOBs bloBs = gson.fromJson(jsonStr, ArticleWithBLOBs.class);
+        if (bloBs == null)
+            return false;
+        //
+        byte[] content = form.getDocument().getBytes();
+        logger.info(content);
+        bloBs.setContent(content);
+        int result = articleMapper.insertSelective(bloBs);
+        return result > 0;
     }
 
     @Override
     public boolean articleModify(ArticleForm form) {
-
-
-        return false;
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(form);
+        ArticleWithBLOBs bloBs = gson.fromJson(jsonStr, ArticleWithBLOBs.class);
+        //
+        int result = articleMapper.updateByPrimaryKeyWithBLOBs(bloBs);
+        return result > 0;
     }
 
     @Override
     public boolean articleRemove(long id) {
-
-        return false;
+        int result = articleMapper.deleteByPrimaryKey(id);
+        return result > 0;
     }
+
+
+    /**
+     * @param pageForm
+     * @return
+     */
 
     @Override
     public Page<ArticleForm> articlePage(PageForm pageForm) {
@@ -77,7 +101,7 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
         long count = articleMapper.getCount();
         for (ArticleWithBLOBs article : list) {
             ArticleForm form = new ArticleForm();
-            form.setContent(new String(article.getContent()));
+            form.setDocument(new String(article.getContent()));
             form.setUid(article.getUid());
             articleForms.add(form);
         }

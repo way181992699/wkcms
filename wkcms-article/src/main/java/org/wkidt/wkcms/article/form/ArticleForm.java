@@ -36,15 +36,23 @@ import org.wkidt.wkcms.article.model.Article;
  */
 public class ArticleForm extends Article {
 
-    private String content;
+    private String document;
 
     private String url;
 
-    public String getContent() {
-        return content;
+    public String getDocument() {
+        return document;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

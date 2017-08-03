@@ -50,10 +50,13 @@ public class ArticleController extends BaseController<User> {
     private ArticleService articleService;
 
     @ResponseBody
-    @RequestMapping(value = "/article/add", method = RequestMethod.POST)
-    Result articleAdd(ArticleWithBLOBs article) {
+    @RequestMapping(value = "/article/add", method = RequestMethod.GET)
+    Result articleAdd(ArticleForm form) {
         try {
-
+            if (articleService.articleAdd(form)) {
+                return new Result(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
+            }
+            return new Result(Result.STATUS_ERROR, Result.MESSAGE_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,22 +64,27 @@ public class ArticleController extends BaseController<User> {
     }
 
     @ResponseBody
-    @RequestMapping("")
-    Result articleModify(){
+    @RequestMapping("/article/modify")
+    Result articleModify() {
+        try {
 
-        return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Result(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
     }
 
 
     @ResponseBody
     @RequestMapping("/article/remove")
-    Result articleRemove(Long id){
+    Result articleRemove(Long id) {
+        try {
 
-
-        return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Result(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
     }
-
-
 
     /**
      * 获取分页文章
