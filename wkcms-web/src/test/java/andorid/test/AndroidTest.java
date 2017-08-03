@@ -32,6 +32,7 @@ import okhttp3.*;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -91,5 +92,15 @@ public class AndroidTest {
 		String url = "http://localhost:8080/wkcms-web/";
 		get(url);
 	}
-	
+
+	@Test
+	public void createArticle() {
+		String url = "http://localhost:8080/wkcms-web/article/add";
+		Map<String, Object> params = new HashMap<>();
+		params.put("title", "哈哈哈哈");
+		params.put("subtitle", "呵呵呵呵呵呵");
+		params.put("document", "阿斯达数量达到拉对啦对啦大时代");
+		post(url, params);
+	}
+
 }
