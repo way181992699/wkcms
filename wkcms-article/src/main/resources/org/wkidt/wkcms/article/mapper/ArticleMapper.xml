@@ -44,7 +44,7 @@
         where article_id = #{articleId,jdbcType=BIGINT}
     </select>
 
-    <select id="selectPage" parameterType="org.wkidt.wkcms.common.PageForm" resultMap="ResultMapWithBLOBs">
+    <select id="selectPage" parameterType="org.wkidt.wkcms.common.form.PageForm" resultMap="ResultMapWithBLOBs">
         select
         <include refid="Base_Column_List"/>
         ,

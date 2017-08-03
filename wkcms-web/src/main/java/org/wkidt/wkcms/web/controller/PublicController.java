@@ -31,9 +31,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wkidt.wkcms.common.BaseController;
-import org.wkidt.wkcms.common.Page;
-import org.wkidt.wkcms.common.PageResult;
-import org.wkidt.wkcms.common.Result;
+import org.wkidt.wkcms.common.model.Page;
+import org.wkidt.wkcms.common.model.PageResult;
+import org.wkidt.wkcms.common.model.Result;
 import org.wkidt.wkcms.user.model.User;
 
 /**

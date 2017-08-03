@@ -35,7 +35,7 @@ import static org.wkidt.wkcms.conf.Config.USER_AGENT_ANDROID;
 import static org.wkidt.wkcms.conf.Config.USER_AGENT_IOS;
 
 /**
- * Description
+ * HTTP请求工具类
  * <p>
  * Created by zcm on 2017/8/1. version 1.0
  */

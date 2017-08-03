@@ -28,10 +28,7 @@ package org.wkidt.wkcms.user.service;
 //
 
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-import org.wkidt.wkcms.common.Page;
+import org.wkidt.wkcms.common.model.Page;
 import org.wkidt.wkcms.user.model.User;
 
 /**

@@ -30,15 +30,11 @@ package org.wkidt.wkcms.user.service.impl;
 
 
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.wkidt.wkcms.common.AbstractService;
-import org.wkidt.wkcms.common.Page;
+import org.wkidt.wkcms.common.model.Page;
 import org.wkidt.wkcms.user.mapper.UserMapper;
 import org.wkidt.wkcms.user.model.User;
 import org.wkidt.wkcms.user.service.UserService;

@@ -1,4 +1,4 @@
-package org.wkidt.wkcms.common;
+package org.wkidt.wkcms.common.form;
 //
 //                       _oo0oo_
 //                      o8888888o

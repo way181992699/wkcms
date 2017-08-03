@@ -32,14 +32,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.wkidt.wkcms.article.form.ArticleForm;
 import org.wkidt.wkcms.article.mapper.ArticleMapper;
+import org.wkidt.wkcms.article.mapper.DocCatagoryMapper;
+import org.wkidt.wkcms.article.mapper.DocModelMapper;
 import org.wkidt.wkcms.article.model.ArticleWithBLOBs;
+import org.wkidt.wkcms.article.model.DocCatagory;
+import org.wkidt.wkcms.article.model.DocModel;
 import org.wkidt.wkcms.article.service.ArticleService;
 import org.wkidt.wkcms.common.AbstractService;
-import org.wkidt.wkcms.common.Page;
-import org.wkidt.wkcms.common.PageForm;
+import org.wkidt.wkcms.common.model.Page;
+import org.wkidt.wkcms.common.form.PageForm;
+import org.wkidt.wkcms.common.model.Result;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,6 +56,21 @@ public class ArticleServiceImpl extends AbstractService implements ArticleServic
 
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private DocModelMapper docModelMapper;
+    @Autowired
+    private DocCatagoryMapper docCatagoryMapper;
+
+
+    @Override
+    public Result<DocModel> getArticleModels() {
+        return null;
+    }
+
+    @Override
+    public Result<DocCatagory> getArticleCatagories() {
+        return null;
+    }
 
 
     @Override

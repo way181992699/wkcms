@@ -29,14 +29,16 @@ package org.wkidt.wkcms.article.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wkidt.wkcms.article.form.ArticleForm;
-import org.wkidt.wkcms.article.model.ArticleWithBLOBs;
 import org.wkidt.wkcms.article.service.ArticleService;
 import org.wkidt.wkcms.common.*;
+import org.wkidt.wkcms.common.form.PageForm;
+import org.wkidt.wkcms.common.model.Page;
+import org.wkidt.wkcms.common.model.PageResult;
+import org.wkidt.wkcms.common.model.Result;
 import org.wkidt.wkcms.user.model.User;
 
 /**
@@ -65,9 +67,12 @@ public class ArticleController extends BaseController<User> {
 
     @ResponseBody
     @RequestMapping("/article/modify")
-    Result articleModify() {
+    Result articleModify(ArticleForm form) {
         try {
-
+            if (articleService.articleModify(form)) {
+                return new Result(Result.STATUS_SUCCESS, "修改成功");
+            }
+            return new Result(Result.STATUS_ERROR, "修改失败");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +84,10 @@ public class ArticleController extends BaseController<User> {
     @RequestMapping("/article/remove")
     Result articleRemove(Long id) {
         try {
-
+            if (articleService.articleRemove(id)) {
+                return new Result(Result.STATUS_SUCCESS, "删除成功");
+            }
+            return new Result(Result.STATUS_ERROR, "删除失败");
         } catch (Exception e) {
             e.printStackTrace();
         }

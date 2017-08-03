@@ -2,7 +2,7 @@ package org.wkidt.wkcms.article.mapper;
 
 import org.wkidt.wkcms.article.model.Article;
 import org.wkidt.wkcms.article.model.ArticleWithBLOBs;
-import org.wkidt.wkcms.common.PageForm;
+import org.wkidt.wkcms.common.form.PageForm;
 
 import java.util.List;
 

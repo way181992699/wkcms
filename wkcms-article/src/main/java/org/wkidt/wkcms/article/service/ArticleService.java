@@ -28,8 +28,11 @@ package org.wkidt.wkcms.article.service;
 //
 
 import org.wkidt.wkcms.article.form.ArticleForm;
-import org.wkidt.wkcms.common.Page;
-import org.wkidt.wkcms.common.PageForm;
+import org.wkidt.wkcms.article.model.DocCatagory;
+import org.wkidt.wkcms.article.model.DocModel;
+import org.wkidt.wkcms.common.model.Page;
+import org.wkidt.wkcms.common.form.PageForm;
+import org.wkidt.wkcms.common.model.Result;
 
 /**
  * Description
@@ -38,6 +41,20 @@ import org.wkidt.wkcms.common.PageForm;
  */
 
 public interface ArticleService {
+
+    /**
+     * 获取文章模型
+     *
+     * @return
+     */
+    Result<DocModel> getArticleModels();
+
+    /**
+     * 获取文章分类
+     *
+     * @return
+     */
+    Result<DocCatagory> getArticleCatagories();
 
     /**
      * 添加文章
