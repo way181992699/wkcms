@@ -73,12 +73,12 @@ public interface UserMapper {
     long getCount();
     
     /**
-     * 
-     * 修改用户密码
-     * 
-     * @return int
+     * 修改用户密码(用户名和旧密码同时成立才能修改)
+     * @author wkx
+     * @param userName
+     * @param oldPwd
+     * @param newpwd
+     * @return
      */
-     int changePassword(User user);
-
-
+     int changePassword(@Param("userName") String userName,@Param("oldpwd") String oldPwd,@Param("newpwd") String newpwd);
 }

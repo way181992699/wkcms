@@ -69,7 +69,7 @@ public class UserController extends BaseController<User> {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/user/login")
+	@RequestMapping(value = "/user/login",method=RequestMethod.POST)
 	Result login(LoginForm form) {
 		try {
 			// 判断验证码的正确性
@@ -82,7 +82,7 @@ public class UserController extends BaseController<User> {
 
 			// 获取用户信息
 			User user = userService.login(form.getUserName());
-			if (user != null) {
+			if (user!= null) {
 				if (user.getPassword().equals(form.getPassword())) {
 					Subject subject = SecurityUtils.getSubject();
 					// 判断客户端
@@ -121,7 +121,7 @@ public class UserController extends BaseController<User> {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/user/register")
+	@RequestMapping(value="/user/register",method=RequestMethod.POST)
 	Result register(RegisterForm form) {
 		try {
 			userService.register(form);
@@ -146,12 +146,12 @@ public class UserController extends BaseController<User> {
 	  /**
      * 
      * 分页查询用户
-     * 
+     * @author wkx 
      * @param page
      * @return
      */
-    @RequestMapping(value="/user/queryAll",method=RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping(value="/user/pagedQuery",method=RequestMethod.GET)
+    @ResponseBody 
     PageResult<User> pageSelectUser(Page  page){
     	try {
     	Page<User> p =userService.pageSelectUser(page);
@@ -169,7 +169,7 @@ public class UserController extends BaseController<User> {
     
     /**
      * 新增用户
-     * 
+     * @author wkx 
      * @param record
      * @return
      */
@@ -190,7 +190,7 @@ public class UserController extends BaseController<User> {
     
     /**
      * 根据userId 查询出用户信息
-     * 
+     * @author wkx 
      * @param userId
      * @return
      */
@@ -212,11 +212,11 @@ public class UserController extends BaseController<User> {
     
     /**
      * 修改用户
-     * 
+     * @author wkx 
      * @param record
      * @return
      */
-    @RequestMapping("/user/update")
+    @RequestMapping(value="/user/update",method=RequestMethod.POST)
     @ResponseBody
     Result<User> updateByPrimaryKey(User record){
     	try {
@@ -234,7 +234,7 @@ public class UserController extends BaseController<User> {
     
     /**
      * 删除用户
-     * 
+     * @author wkx 
      * @param record
      * @return
      */
@@ -252,33 +252,29 @@ public class UserController extends BaseController<User> {
     	
     	return new Result<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
     }
-
-    @RequestMapping("/user/updatepwd")
-    @ResponseBody
-    Result<User> changePassword(User user){
-    	try {
-    		
-			int result = userService.changePassword(user);
-			if (result>0) {
-				return new Result<User>(Result.STATUS_SUCCESS,"密码修改成功");
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-    	return new Result<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
-    }
     
-   public void getName(){
-	
-	   System.out.println(String.class.getClass().getName());
+   /**
+    * 修改用户密码(用户名和旧密码同时成立才能修改)
+    * @author wkx
+    * @param userName
+    * @param oldPwd
+    * @param newPwd
+    * @return
+    */
+   @RequestMapping(value="/user/changePwd",method=RequestMethod.POST)
+   @ResponseBody
+   Result changePassword(String userName,String oldPwd,String newPwd){
+	   try {
+		   int result = userService.changePassword(userName,oldPwd,newPwd);
+		   if (result>0) {
+			return new Result(Result.STATUS_SUCCESS, "修改成功");
+		
+		}
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+	   return new Result(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
    }
- 
-/*    @ResponseBody
-    @RequestMapping("/goto")
-    String test(String name){
-    	
-    	System.out.println(name);
-    return	name;
-    	
-    }*/
+   
+
 }

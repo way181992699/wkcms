@@ -11,7 +11,9 @@
         <result column="last_updaet_time" property="lastUpdaetTime" jdbcType="TIMESTAMP"/>
         <collection property="roles" resultMap="RoleResultMap"></collection>
     </resultMap>
+	
 
+	
     <resultMap id="RoleResultMap" type="org.wkidt.wkcms.user.model.Role">
         <id column="role_id" property="roleId" jdbcType="BIGINT"/>
         <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
@@ -25,6 +27,8 @@
     <sql id="Base_Column_List">
     uid, user_name, password, sex, birthday, create_time, last_updaet_time
   </sql>
+  
+  
 
 	<!--  分页查询用户信息 -->
 	<select id="pageSelectUser"  resultType="org.wkidt.wkcms.user.model.User">
@@ -114,12 +118,11 @@
         </trim>
     </insert>
         
-    <!--修改用户密码  -->
-    <update id="changePassword" parameterType="org.wkidt.wkcms.user.model.User">
-    	UPDATE sys_user SET PASSWORD=#{newpassword} WHERE user_name=#{userName} and PASSWORD=#{password}
-    </update>
-  	
-    
+   	
+    <!-- 修改用户密码 -->
+ 	<update id="changePassword"  parameterType="java.util.Map" >
+ 		UPDATE sys_user SET PASSWORD=#{newpwd} WHERE user_name=#{userName} AND PASSWORD=#{oldpwd}
+ 	</update>
     
     <update id="updateByPrimaryKeySelective" parameterType="org.wkidt.wkcms.user.model.User">
         update sys_user

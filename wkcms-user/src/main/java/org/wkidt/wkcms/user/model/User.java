@@ -20,10 +20,7 @@ public class User {
     private Date lastUpdaetTime;
 
     private List<Role> roles;
-    
-    //临时属性，用于修改密码
-    private String newpassword;
-    
+
 
     public List<Role> getRoles() {
         return roles;
@@ -103,11 +100,5 @@ public class User {
                 '}';
     }
 
-	public String getNewpassword() {
-		return newpassword;
-	}
 
-	public void setNewpassword(String newpassword) {
-		this.newpassword = newpassword;
-	}
 }

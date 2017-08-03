@@ -31,6 +31,7 @@ package org.wkidt.wkcms.user.service.impl;
 
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,12 +112,12 @@ public class UserServiceImpl extends AbstractService implements UserService {
 		
 		return userMapper.selectByPrimaryKey(userId);
 	}
-
-	@Override
-	public int changePassword(User user) {
-		// TODO Auto-generated method stub
 	
-		return userMapper.changePassword(user);
+	
+	@Override
+	public int changePassword(String userName,String oldPwd,String newPwd) {
+		// TODO Auto-generated method stub
+		return userMapper.changePassword(userName,oldPwd,newPwd);
 	}
 
 

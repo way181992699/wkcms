@@ -98,12 +98,15 @@ public interface UserService {
      */
     User selectByPrimaryKey(Long userId);
     
-   /**
-    * 
-    * 修改用户密码
-    * 
-    * @return int
-    */
-    int changePassword(User user);
-    
+  
+    /**
+     * 
+     * 修改用户密码(用户名和旧密码同时成立才能修改)
+     * @author wkx
+     * @param userName
+     * @param oldPwd
+     * @param newPwd
+     * @return
+     */
+    int changePassword(String userName,String oldPwd,String newPwd);
 }
