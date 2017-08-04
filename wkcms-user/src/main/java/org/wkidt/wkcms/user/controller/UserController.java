@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wkidt.wkcms.common.BaseController;
+import org.wkidt.wkcms.common.form.PageForm;
 import org.wkidt.wkcms.common.model.Page;
 import org.wkidt.wkcms.common.model.PageResult;
 import org.wkidt.wkcms.common.model.Result;
@@ -111,7 +112,7 @@ public class UserController extends BaseController<User> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new Result(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+		return new Result(Result.STATUS_UNKNOW,"登陆失败");
 	}
 
 	/**
@@ -129,7 +130,7 @@ public class UserController extends BaseController<User> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new Result(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+		return new Result(Result.STATUS_UNKNOW,"注册失败");
 	}
 
 	/**
@@ -141,7 +142,7 @@ public class UserController extends BaseController<User> {
 	@ResponseBody
 	Result logout() {
 		SecurityUtils.getSubject().logout();
-		return new Result(Result.STATUS_SUCCESS, "退出成功");
+		return new Result(Result.STATUS_SUCCESS, "注销成功");
 	}
 	  /**
      * 
@@ -152,9 +153,9 @@ public class UserController extends BaseController<User> {
      */
     @RequestMapping(value="/user/pagedQuery",method=RequestMethod.GET)
     @ResponseBody 
-    PageResult<User> pageSelectUser(Page  page){
+    PageResult<User> pageSelectUser(PageForm  pageForm){
     	try {
-    	Page<User> p =userService.pageSelectUser(page);
+    	Page<User> p =userService.pageSelectUser(pageForm);
     	
     	return new PageResult<User>(Result.STATUS_SUCCESS, "查询成功", p);
     	
@@ -179,7 +180,7 @@ public class UserController extends BaseController<User> {
     	try {
     		boolean result = userService.insert(record);
     		if (result==true) {
-				return new Result<User>(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
+				return new Result<User>(Result.STATUS_SUCCESS,"添加成功");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -222,13 +223,13 @@ public class UserController extends BaseController<User> {
     	try {
     		boolean result = userService.updateByPrimaryKey(record);
     		if (result==true) {
-				return new Result<User>(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
+				return new Result<User>(Result.STATUS_SUCCESS,"修改成功");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
     	
-    	return new Result<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+    	return new Result<User>(Result.STATUS_UNKNOW,"修改失败");
     }
     
     
@@ -244,13 +245,13 @@ public class UserController extends BaseController<User> {
     	try {
     		boolean result = userService.deleteByPrimaryKey(userId);
     		if (result==true) {
-				return new Result<User>(Result.STATUS_SUCCESS, Result.MESSAGE_SUCCESS);
+				return new Result<User>(Result.STATUS_SUCCESS,"删除成功");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
     	
-    	return new Result<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+    	return new Result<User>(Result.STATUS_UNKNOW,"删除失败");
     }
     
    /**
@@ -267,13 +268,13 @@ public class UserController extends BaseController<User> {
 	   try {
 		   int result = userService.changePassword(userName,oldPwd,newPwd);
 		   if (result>0) {
-			return new Result(Result.STATUS_SUCCESS, "修改成功");
+			return new Result(Result.STATUS_SUCCESS, "密码修改成功");
 		
 		}
 	} catch (Exception e) {
 		// TODO: handle exception
 	}
-	   return new Result(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
+	   return new Result(Result.STATUS_UNKNOW,"密码修改失败");
    }
    
 

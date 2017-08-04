@@ -28,6 +28,7 @@ package org.wkidt.wkcms.user.service;
 //
 
 
+import org.wkidt.wkcms.common.form.PageForm;
 import org.wkidt.wkcms.common.model.Page;
 import org.wkidt.wkcms.user.model.User;
 
@@ -60,7 +61,7 @@ public interface UserService {
      * @author wkx
      * @return
      */
-    Page<User> pageSelectUser(Page page);
+    Page<User> pageSelectUser(PageForm pageForm);
     
     /**
      * 用户新增

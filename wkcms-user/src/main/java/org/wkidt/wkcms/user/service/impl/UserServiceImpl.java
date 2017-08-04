@@ -34,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.wkidt.wkcms.common.AbstractService;
+import org.wkidt.wkcms.common.form.PageForm;
 import org.wkidt.wkcms.common.model.Page;
 import org.wkidt.wkcms.user.mapper.UserMapper;
 import org.wkidt.wkcms.user.model.User;
@@ -64,9 +65,9 @@ public class UserServiceImpl extends AbstractService implements UserService {
     
     //分页查询用户信息
 	@Override
-	public Page<User> pageSelectUser(Page  page) {		
+	public Page<User> pageSelectUser(PageForm  pageForm) {		
 		Page<User> pa = new Page<User>();
-		pa.setData(userMapper.pageSelectUser(page.getPageCount(), (page.getCurrentPage()-1)*page.getPageCount()));
+		pa.setData(userMapper.pageSelectUser(pageForm.getPageCount(), (pageForm.getCurrentPage()-1)*pageForm.getPageCount()));
 		pa.setTota(userMapper.getCount());
 		return pa;
 	}
