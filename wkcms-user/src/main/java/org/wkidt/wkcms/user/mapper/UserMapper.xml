@@ -11,9 +11,8 @@
         <result column="last_updaet_time" property="lastUpdaetTime" jdbcType="TIMESTAMP"/>
         <collection property="roles" resultMap="RoleResultMap"></collection>
     </resultMap>
-	
 
-	
+
     <resultMap id="RoleResultMap" type="org.wkidt.wkcms.user.model.Role">
         <id column="role_id" property="roleId" jdbcType="BIGINT"/>
         <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
@@ -27,14 +26,15 @@
     <sql id="Base_Column_List">
     uid, user_name, password, sex, birthday, create_time, last_updaet_time
   </sql>
-  
-  																		 <!--select  -->
-	<!--  分页查询用户信息 -->
-	<select id="pageSelectUser"  parameterType="org.wkidt.wkcms.common.form.PageForm" resultType="org.wkidt.wkcms.user.model.User">
+
+    <!--select  -->
+    <!--  分页查询用户信息 -->
+    <select id="pageSelectUser" parameterType="org.wkidt.wkcms.common.form.PageForm"
+            resultType="org.wkidt.wkcms.user.model.User">
 		select * from sys_user limit #{offset},#{pageCount}
 	</select>
-	<!--查询用户的总数  -->
-	<select id="getCount" resultType="long">
+    <!--查询用户的总数  -->
+    <select id="getCount" resultType="long">
 		select count(*) from sys_user 
 	</select>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -52,15 +52,15 @@
         select * from sys_user u,sys_userrole ur, sys_role r where u.uid = ur.uid and r.role_id = ur.role_id   and u.user_name=#{userName}
     </select>
     <!--  select  end -->
-    
-    
-																	 <!--delete  --> 
+
+
+    <!--delete  -->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sys_user
     where uid = #{userId,jdbcType=BIGINT}
   </delete>
 
-																	<!--insert  --> 
+    <!--insert  -->
     <insert id="insert" parameterType="org.wkidt.wkcms.user.model.User">
     insert into sys_user (uid,user_name,password, 
       sex, birthday, create_time, 
@@ -119,13 +119,13 @@
             </if>
         </trim>
     </insert>
-        
-   																		 <!--update  -->
+
+    <!--update  -->
     <!-- 修改用户密码 -->
- 	<update id="changePassword"  parameterType="java.util.Map" >
+    <update id="changePassword" parameterType="java.util.Map">
  		UPDATE sys_user SET PASSWORD=#{newpwd}, last_updaet_time = CURRENT_TIMESTAMP WHERE user_name=#{userName} AND PASSWORD=#{oldpwd} 
  	</update>
-    
+
     <update id="updateByPrimaryKeySelective" parameterType="org.wkidt.wkcms.user.model.User">
         update sys_user
         <set>
@@ -151,15 +151,15 @@
         where uid = #{userId,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="org.wkidt.wkcms.user.model.User">
-    update sys_user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=INTEGER},
-      birthday = #{birthday,jdbcType=DATE},
-      <if test="createTime != null">
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      last_updaet_time =CURRENT_TIMESTAMP
-    where uid = #{userId,jdbcType=BIGINT}
-  </update>
+        update sys_user
+        set user_name = #{userName,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        sex = #{sex,jdbcType=INTEGER},
+        birthday = #{birthday,jdbcType=DATE},
+        <if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+        </if>
+        last_updaet_time =CURRENT_TIMESTAMP
+        where uid = #{userId,jdbcType=BIGINT}
+    </update>
 </mapper>

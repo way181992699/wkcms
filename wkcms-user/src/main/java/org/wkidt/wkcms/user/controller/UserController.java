@@ -167,7 +167,10 @@ public class UserController extends BaseController<User> {
     	return new PageResult<User>(Result.STATUS_UNKNOW, Result.MESSAGE_UNKNOW);
     	
     }
-    
+
+
+
+
     /**
      * 新增用户
      * @author wkx 
